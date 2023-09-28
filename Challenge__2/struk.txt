@@ -1,0 +1,20 @@
+=====================================
+              BinarFud
+=====================================
+
+Terima kasih sudah memesan di
+Binarfud
+
+Dibawah ini adalah pesanan anda
+
+Nasi Goreng       3     15000  45000
+
+-------------------------------------+
+Total             3            45000
+
+Pembayaran : BinarCash
+
+=====================================
+Simpan struk ini sebagai bukti
+pembayaran
+=====================================
