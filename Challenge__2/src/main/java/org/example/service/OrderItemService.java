@@ -87,7 +87,7 @@ public class OrderItemService {
     public void printStruck() {
         PaymentView pv = new PaymentView();
         FileWriter myWriter = null;
-        String path = "struk.txt";
+        String path = "B:\\SYNRGY\\Latihan_Java\\Challenge_Binar\\Challenge__2\\struk.txt";
         try(InputStream input = Files.newInputStream(Path.of(path))){
             myWriter = new FileWriter(path);
             myWriter.write(Constant.PRINTHEADERSTRUCT);
