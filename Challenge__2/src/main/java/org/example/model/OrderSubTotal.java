@@ -11,8 +11,8 @@ public class OrderSubTotal extends OrderItem {
         this.subTotal = subTotal;
     }
 
-    public OrderSubTotal(String menuName, Integer menuPrice, Integer quantity, Integer subTotal) {
-        super(menuName, menuPrice, quantity);
+    public OrderSubTotal(Integer idMenu, String menuName, Integer menuPrice, Integer quantity, Integer subTotal) {
+        super(idMenu, menuName, menuPrice, quantity);
         this.subTotal = subTotal;
     }
 }

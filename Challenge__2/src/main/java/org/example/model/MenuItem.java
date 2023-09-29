@@ -1,8 +1,17 @@
 package org.example.model;
 
 public class MenuItem {
+    private Integer idMenu;
     private String menuName;
     private Integer menuPrice;
+
+    public Integer getIdMenu() {
+        return idMenu;
+    }
+
+    public void setIdMenu(Integer idMenu) {
+        this.idMenu = idMenu;
+    }
 
     public String getMenuName() {
         return this.menuName;
@@ -23,7 +32,8 @@ public class MenuItem {
     public MenuItem() {
     }
 
-    public MenuItem(String menuName, Integer menuPrice) {
+    public MenuItem(Integer idMenu, String menuName, Integer menuPrice) {
+        this.idMenu = idMenu;
         this.menuName = menuName;
         this.menuPrice = menuPrice;
     }

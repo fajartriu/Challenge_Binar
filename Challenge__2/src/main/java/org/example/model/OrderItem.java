@@ -3,8 +3,8 @@ package org.example.model;
 public class OrderItem extends MenuItem {
     private Integer quantity;
 
-    public OrderItem(String menuName, Integer menuPrice, Integer quantity) {
-        super(menuName, menuPrice);
+    public OrderItem(Integer idMenu, String menuName, Integer menuPrice, Integer quantity) {
+        super(idMenu, menuName, menuPrice);
         this.quantity = quantity;
     }
 

@@ -106,6 +106,23 @@ public class Constant {
                 "Total             "+sumQty+"            "+sumTotal+"\n";
     }
 
+    public static final String VARIANMAKANAN = """
+            ==========================
+            Pilih varian makanan
+            ==========================
+            1. Pedas
+            2. Sedang
+            3. Biasa
+            """;
+
+    public static final String VARIANMINUMAN = """
+            ==========================
+            Pilih varian minuman
+            ==========================
+            1. Panas
+            2. Dingin
+            """;
+
 
 
 }

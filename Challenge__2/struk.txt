@@ -7,10 +7,21 @@ Binarfud
 
 Dibawah ini adalah pesanan anda
 
+Es Jeruk          5     5000   25000
+Nasi + Ayam       3     18000  54000
 Nasi Goreng       1     15000  15000
+Mie Goreng        2     13000  26000
+Es Teh Manis      4     3000   12000
 
 -------------------------------------+
-Total             1            15000
+Total             15           132000
+
+Notes : 
+1 Nasi Goreng Pedas
+2 Mie Goreng Sedang
+3 Nasi + Ayam Biasa
+4 Es Teh Manis Panas
+5 Es Jeruk Dingin
 
 Pembayaran : BinarCash
 

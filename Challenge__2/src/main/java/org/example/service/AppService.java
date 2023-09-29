@@ -17,7 +17,9 @@ public class AppService {
     public void initiateData() {
         MenuItemService mis = new MenuItemService();
         mis.initiateData();
-
+        NotesService ns = new NotesService();
+        ns.initiateNotesMinuman();
+        ns.initiateNotesMakanan();
     }
 
     public void run(){

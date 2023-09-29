@@ -8,6 +8,7 @@ import org.example.service.OrderItemService;
 import org.example.utils.Constant;
 import org.example.view.ErrorView;
 import org.example.view.HomeView;
+import org.example.view.NotesView;
 import org.example.view.OrderView;
 
 public class OrderItemController {
@@ -45,21 +46,37 @@ public class OrderItemController {
 
     public void orderMenu(int number){
         OrderView ov = new OrderView();
+        Integer idMenu = ois.orderMenu(number).get(0).getIdMenu();
         String menuName = ois.orderMenu(number).get(0).getMenuName();
         Integer menuPrice = ois.orderMenu(number).get(0).getMenuPrice();
         ov.screenOrder(menuName, menuPrice);
         try {
             int qty = inputUser();
             if (qty > 0){
-                Data.orderItems.add(new OrderItem(menuName, menuPrice, qty));
+                Data.orderItems.add(new OrderItem(idMenu, menuName, menuPrice, qty));
+                selectNotes(number, menuName);
             } else {
                 Constant.printBackToHome(menuName);
             }
         }catch (Exception e){
             AppService.setExit(errorHandler());
         }
-
     }
+
+    public void selectNotes(int number, String menuName){
+        NotesView nv = new NotesView();
+        if(number == 1 || number == 2 || number == 3){
+            nv.screenNotesMakanan();
+            int no = inputUser();
+            ois.chooseMakananNotes(no, menuName);
+        }else if (number == 4 || number == 5){
+            nv.screenNotesMinuman();
+            int no = inputUser();
+            ois.chooseMinumanNotes(no, menuName);
+        }
+    }
+
+
 
     public boolean checkOutOrder(){
         return ois.checkOutOrder();

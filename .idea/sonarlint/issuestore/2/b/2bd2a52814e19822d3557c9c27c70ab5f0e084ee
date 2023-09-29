@@ -1,0 +1,12 @@
+
+{
+java:S1104m"YMake varianMakanan a static final constant or non-public and provide accessors if needed.(ùó°™şÿÿÿÿ8Œä¹‹®1
+v
+java:S1104v"YMake varianMinuman a static final constant or non-public and provide accessors if needed.(ÄÄñ»8Û¾‹®1
+U
+java:S1444m"3Make this "public static varianMakanan" field final(ùó°™şÿÿÿÿ8ä¹‹®1
+P
+java:S1444v"3Make this "public static varianMinuman" field final(ÄÄñ»8Û¾‹®1
+G	java:S106"+Replace this use of System.out by a logger.(”“î€8 ä¹‹®1
+G	java:S106="+Replace this use of System.out by a logger.(Îñë8£ä¹‹®1
+L	java:S106C"+Replace this use of System.out by a logger.(ûïÑúÿÿÿÿ8¥ä¹‹®1

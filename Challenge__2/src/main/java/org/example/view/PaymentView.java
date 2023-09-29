@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.example.model.Data;
-import org.example.model.OrderItem;
-import org.example.model.OrderSubTotal;
+
+import org.example.model.*;
+import org.example.service.MenuItemService;
 import org.example.utils.Constant;
 
 public class PaymentView {
     public void screenConfirmPayment(){
         System.out.println(Constant.PRINTCONFIRMPAYMENT);
         count();
+        System.out.print("\n");
         System.out.println(Constant.PRINTINPUTPAYMENT);
         System.out.print("=> ");
     }
@@ -46,33 +47,36 @@ public class PaymentView {
         }else{
             System.out.println(Constant.sumTotalQtyLess(sumQty,sumTotal));
         }
+
+        System.out.println("Notes : ");
+        for (OrderNotes orderNotes:Data.notes){
+            int qty = getQty(orderNotes.getName());
+            System.out.println(qty +" "+orderNotes.getName()+" "+orderNotes.getNotes());
+        }
+    }
+
+    public Integer getQty(String name){
+        for (OrderSubTotal orderSubTotal: tempSubTotal()){
+            if (orderSubTotal.getMenuName().equals(name)){
+                return orderSubTotal.getQuantity();
+            }
+        }
+        return null;
     }
 
     public List<OrderSubTotal> tempSubTotal(){
+        MenuItemService mis = new MenuItemService();
         Map<String, Integer> groupQty = Data.orderItems.stream().collect(Collectors.groupingBy(OrderItem::getMenuName,
                 Collectors.summingInt(OrderItem::getQuantity)));
 
         List<OrderSubTotal> listOrder = new ArrayList<>();
         int sub = 0;
-        for (Map.Entry<String,Integer> entry : groupQty.entrySet())
-            if (entry.getKey().equals("Nasi Goreng")){
-                sub = entry.getValue() * 15000;
-                listOrder.add(new OrderSubTotal(entry.getKey(), 15000, entry.getValue(), sub));
-            }
-            else if (entry.getKey().equals("Mie Goreng")){
-                sub = entry.getValue() * 13000;
-                listOrder.add(new OrderSubTotal(entry.getKey(), 13000, entry.getValue(), sub));
-            }
-            else if (entry.getKey().equals("Nasi + Ayam")){
-                sub = entry.getValue() * 18000;
-                listOrder.add(new OrderSubTotal(entry.getKey(), 18000, entry.getValue(), sub));
-            }else if (entry.getKey().equals("Es Teh Manis")){
-                sub = entry.getValue() * 3000;
-                listOrder.add(new OrderSubTotal(entry.getKey(), 3000, entry.getValue(), sub));
-            }else if (entry.getKey().equals("Es Jeruk")) {
-                sub = entry.getValue() * 5000;
-                listOrder.add(new OrderSubTotal(entry.getKey(), 5000, entry.getValue(), sub));
-            }
+        for (Map.Entry<String,Integer> entry : groupQty.entrySet()){
+            Integer menuId = mis.getMenuId(entry.getKey());
+            Integer menuPrice = mis.getMenuPrice(entry.getKey());
+            sub = entry.getValue() * menuPrice;
+            listOrder.add(new OrderSubTotal(menuId, entry.getKey(), menuPrice, entry.getValue(), sub));
+        }
         return listOrder;
     }
 }

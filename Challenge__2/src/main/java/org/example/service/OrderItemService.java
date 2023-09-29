@@ -10,9 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import org.example.model.Data;
-import org.example.model.MenuItem;
-import org.example.model.OrderSubTotal;
+
+import org.example.model.*;
 import org.example.utils.Constant;
 import org.example.view.PaymentView;
 
@@ -23,34 +22,11 @@ public class OrderItemService {
 
     public List<MenuItem> orderMenu(int menuNumber) {
         MenuItemService mis = new MenuItemService();
-        if (menuNumber == 1){
-            String menuName = mis.getMenuItems().get(0).getMenuName();
-            Integer menuPrice = mis.getMenuItems().get(0).getMenuPrice();
-            tempOrder.add(new MenuItem(menuName, menuPrice));
-            return tempOrder;
-
-        } else if (menuNumber == 2) {
-            String menuName = mis.getMenuItems().get(1).getMenuName();
-            Integer menuPrice = mis.getMenuItems().get(1).getMenuPrice();
-            tempOrder.add(new MenuItem(menuName, menuPrice));
-            return tempOrder;
-
-        } else if (menuNumber == 3) {
-            String menuName = mis.getMenuItems().get(2).getMenuName();
-            Integer menuPrice = mis.getMenuItems().get(2).getMenuPrice();
-            tempOrder.add(new MenuItem(menuName, menuPrice));
-            return tempOrder;
-
-        } else if (menuNumber == 4) {
-            String menuName = mis.getMenuItems().get(3).getMenuName();
-            Integer menuPrice = mis.getMenuItems().get(3).getMenuPrice();
-            tempOrder.add(new MenuItem(menuName, menuPrice));
-            return tempOrder;
-
-        } else if (menuNumber == 5) {
-            String menuName = mis.getMenuItems().get(4).getMenuName();
-            Integer menuPrice = mis.getMenuItems().get(4).getMenuPrice();
-            tempOrder.add(new MenuItem(menuName, menuPrice));
+        int i = (menuNumber-1);
+        if (menuNumber == mis.getMenuItems().get(i).getIdMenu()){
+            String menuName = mis.getMenuItems().get(i).getMenuName();
+            Integer menuPrice = mis.getMenuItems().get(i).getMenuPrice();
+            tempOrder.add(new MenuItem(mis.getMenuItems().get(i).getIdMenu(), menuName, menuPrice));
             return tempOrder;
         }
         return tempOrder;
@@ -86,6 +62,22 @@ public class OrderItemService {
         }
     }
 
+    public void chooseMakananNotes(int no, String menuName){
+        NotesService ns = new NotesService();
+        int i = (no-1);
+        if (ns.getNotesMakanan().get(i).getIdNotes() == no){
+            Data.notes.add(new OrderNotes(ns.getNotesMakanan().get(i).getIdNotes(), ns.getNotesMakanan().get(i).getNotes(), menuName));
+        }
+    }
+
+    public void chooseMinumanNotes(int no, String menuName){
+        NotesService ns = new NotesService();
+        int i = (no-1);
+        if (ns.getNotesMinuman().get(i).getIdNotes() == no){
+            Data.notes.add(new OrderNotes(ns.getNotesMinuman().get(i).getIdNotes(), ns.getNotesMinuman().get(i).getNotes(), menuName));
+        }
+    }
+
     public void printStruck() {
         PaymentView pv = new PaymentView();
         FileWriter myWriter = null;
@@ -114,6 +106,12 @@ public class OrderItemService {
                 myWriter.write(Constant.sumTotalQtyMore(sumQty, sumTotal));
             } else {
                 myWriter.write(Constant.sumTotalQtyLess(sumQty, sumTotal));
+            }
+
+            myWriter.write("\nNotes : \n");
+            for (OrderNotes orderNotes:Data.notes){
+                int qty = pv.getQty(orderNotes.getName());
+                myWriter.write(qty +" "+orderNotes.getName()+" "+orderNotes.getNotes()+"\n");
             }
 
             myWriter.write(Constant.PRINTFOOTERSTRUCT);
