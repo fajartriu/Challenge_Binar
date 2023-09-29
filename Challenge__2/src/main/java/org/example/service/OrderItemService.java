@@ -81,7 +81,7 @@ public class OrderItemService {
     public void printStruck() {
         PaymentView pv = new PaymentView();
         FileWriter myWriter = null;
-        File currentDir = new File("Challenge__2/struk.txt");
+        File currentDir = new File("struk.txt");
         String path = currentDir.getAbsolutePath();
         try(InputStream input = Files.newInputStream(Path.of(path))){
             myWriter = new FileWriter(path);
