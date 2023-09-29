@@ -109,9 +109,8 @@ public class OrderItemService {
             }
 
             myWriter.write("\nNotes : \n");
-            for (OrderNotes orderNotes:Data.notes){
-                int qty = pv.getQty(orderNotes.getName());
-                myWriter.write(qty +" "+orderNotes.getName()+" "+orderNotes.getNotes()+"\n");
+            for (TotalOrderNotes totalOrderNotes:pv.handleRedundantNotes()){
+                myWriter.write(totalOrderNotes.getTotalNotes()+" "+totalOrderNotes.getName()+" "+totalOrderNotes.getNotes());
             }
 
             myWriter.write(Constant.PRINTFOOTERSTRUCT);

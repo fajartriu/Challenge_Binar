@@ -49,16 +49,36 @@ public class PaymentView {
         }
 
         System.out.println("Notes : ");
-        for (OrderNotes orderNotes:Data.notes){
-            int qty = getQty(orderNotes.getName());
-            System.out.println(qty +" "+orderNotes.getName()+" "+orderNotes.getNotes());
+        for (TotalOrderNotes totalOrderNotes:handleRedundantNotes()){
+            System.out.println(totalOrderNotes.getTotalNotes()+" "+totalOrderNotes.getName()+" "+totalOrderNotes.getNotes());
         }
     }
 
-    public Integer getQty(String name){
-        for (OrderSubTotal orderSubTotal: tempSubTotal()){
-            if (orderSubTotal.getMenuName().equals(name)){
-                return orderSubTotal.getQuantity();
+    public List<TotalOrderNotes> handleRedundantNotes(){
+        Map<Integer, Long> groupQty = Data.notes.stream().collect(Collectors.groupingBy(OrderNotes::getIdNotes,
+                Collectors.counting()));
+        List<TotalOrderNotes> lisTotNotes = new ArrayList<>();
+        for (Map.Entry<Integer,Long> entry : groupQty.entrySet()){
+            String menuName = getMenuName(entry.getKey());
+            String notes = getNotes(entry.getKey());
+            lisTotNotes.add(new TotalOrderNotes(entry.getKey(), notes, menuName, entry.getValue()));
+        }
+        return lisTotNotes;
+    }
+
+    public String getMenuName(int id){
+        for (OrderNotes orderNotes: Data.notes){
+            if (orderNotes.getIdNotes() == id){
+                return orderNotes.getName();
+            }
+        }
+        return null;
+    }
+
+    public String getNotes(int id){
+        for (OrderNotes orderNotes: Data.notes){
+            if (orderNotes.getIdNotes() == id){
+                return orderNotes.getNotes();
             }
         }
         return null;
