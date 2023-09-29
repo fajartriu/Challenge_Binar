@@ -66,13 +66,23 @@ public class OrderItemController {
     public void selectNotes(int number, String menuName){
         NotesView nv = new NotesView();
         if(number == 1 || number == 2 || number == 3){
-            nv.screenNotesMakanan();
-            int no = inputUser();
-            ois.chooseMakananNotes(no, menuName);
+            try{
+                nv.screenNotesMakanan();
+                int no = inputUser();
+                ois.chooseMakananNotes(no, menuName);
+            }catch (Exception e){
+                AppService.setExit(errorHandler());
+            }
+
         }else if (number == 4 || number == 5){
-            nv.screenNotesMinuman();
-            int no = inputUser();
-            ois.chooseMinumanNotes(no, menuName);
+            try{
+                nv.screenNotesMinuman();
+                int no = inputUser();
+                ois.chooseMinumanNotes(no, menuName);
+            }catch (Exception e){
+                AppService.setExit(errorHandler());
+            }
+
         }
     }
 
