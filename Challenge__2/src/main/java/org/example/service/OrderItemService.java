@@ -1,6 +1,8 @@
 package org.example.service;
 
 import org.example.controller.OrderItemController;
+
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -87,7 +89,8 @@ public class OrderItemService {
     public void printStruck() {
         PaymentView pv = new PaymentView();
         FileWriter myWriter = null;
-        String path = "B:\\SYNRGY\\Latihan_Java\\Challenge_Binar\\Challenge__2\\struk.txt";
+        File currentDir = new File("Challenge__2/struk.txt");
+        String path = currentDir.getAbsolutePath();
         try(InputStream input = Files.newInputStream(Path.of(path))){
             myWriter = new FileWriter(path);
             myWriter.write(Constant.PRINTHEADERSTRUCT);

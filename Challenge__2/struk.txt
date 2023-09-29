@@ -7,10 +7,10 @@ Binarfud
 
 Dibawah ini adalah pesanan anda
 
-Nasi Goreng       1004    15000  15060000
+Nasi Goreng       1     15000  15000
 
 -------------------------------------+
-Total             1004           15060000
+Total             1            15000
 
 Pembayaran : BinarCash
 
