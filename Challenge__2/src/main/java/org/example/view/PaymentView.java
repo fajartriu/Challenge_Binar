@@ -55,30 +55,42 @@ public class PaymentView {
     }
 
     public List<TotalOrderNotes> handleRedundantNotes(){
-        Map<Integer, Long> groupQty = Data.notes.stream().collect(Collectors.groupingBy(OrderNotes::getIdNotes,
+        Map<String, Long> groupQty = Data.notes.stream().collect(Collectors.groupingBy(OrderNotes::getName,
                 Collectors.counting()));
+//        System.out.println("ada");
+//        System.out.println(groupQty);
         List<TotalOrderNotes> lisTotNotes = new ArrayList<>();
-        for (Map.Entry<Integer,Long> entry : groupQty.entrySet()){
+        for (Map.Entry<String,Long> entry : groupQty.entrySet()){
             String menuName = getMenuName(entry.getKey());
             String notes = getNotes(entry.getKey());
-            lisTotNotes.add(new TotalOrderNotes(entry.getKey(), notes, menuName, entry.getValue()));
+            Integer qty = getQty(entry.getKey());
+            lisTotNotes.add(new TotalOrderNotes(menuName, notes, qty));
         }
         return lisTotNotes;
     }
 
-    public String getMenuName(int id){
+    public String getMenuName(String name){
         for (OrderNotes orderNotes: Data.notes){
-            if (orderNotes.getIdNotes() == id){
+            if (orderNotes.getName().equals(name)){
                 return orderNotes.getName();
             }
         }
         return null;
     }
 
-    public String getNotes(int id){
+    public String getNotes(String name){
         for (OrderNotes orderNotes: Data.notes){
-            if (orderNotes.getIdNotes() == id){
+            if (orderNotes.getName().equals(name)){
                 return orderNotes.getNotes();
+            }
+        }
+        return null;
+    }
+
+    public Integer getQty(String name){
+        for(OrderSubTotal orderSubTotal: tempSubTotal()){
+            if(orderSubTotal.getMenuName().equals(name)){
+                return orderSubTotal.getQuantity();
             }
         }
         return null;
