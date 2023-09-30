@@ -57,8 +57,6 @@ public class PaymentView {
     public List<TotalOrderNotes> handleRedundantNotes(){
         Map<String, Long> groupQty = Data.notes.stream().collect(Collectors.groupingBy(OrderNotes::getName,
                 Collectors.counting()));
-//        System.out.println("ada");
-//        System.out.println(groupQty);
         List<TotalOrderNotes> lisTotNotes = new ArrayList<>();
         for (Map.Entry<String,Long> entry : groupQty.entrySet()){
             String menuName = getMenuName(entry.getKey());
